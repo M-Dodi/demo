@@ -19,6 +19,7 @@
     --white:#ffffff;
     --glass: rgba(255,255,255,0.05);
     --glass-border: rgba(255,255,255,0.1);
+    --border: rgba(255,255,255,0.2);
     --radius:16px;
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -3577,7 +3578,7 @@
             <i class="fas fa-user-plus"></i>
             Registrati
           </button>
-          <button class="nav-btn" onclick="openModal('login')">
+          <button class="nav-btn" onclick="openModal('login')" style="padding: 10px 16px;">
             <i class="fas fa-sign-in-alt"></i>
             Accedi
           </button>
@@ -4460,34 +4461,6 @@
       </div>
     </div>
   </div>
-
-  <div id="modal-login" class="modal">
-    <div class="modal-content" style="max-width: 700px;">
-      <div class="modal-header">
-        <h3>Registrazione AI Talent Match</h3>
-        <button class="modal-close" onclick="closeModal('register')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <!-- Role Selection -->
-        <div id="role-selection" class="registration-step active">
-          <h4>Seleziona il tuo ruolo</h4>
-          <p style="color: var(--muted); margin-bottom: 32px;">Scegli la categoria che ti rappresenta per accedere al form di registrazione personalizzato</p>
-          
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-            <div class="role-card" onclick="selectRole('studente')">
-              <div class="feature-icon" style="width: 48px; height: 48px; margin: 0 auto 16px;">
-                <i class="fas fa-graduation-cap"></i>
-              </div>
-              <h5>Studente</h5>
-              <p>Accedi alla piattaforma per creare il tuo profilo e trovare opportunità di stage</p>
-            </div>
-            
-            <div class="role-card" onclick="selectRole('azienda')">
-              <div class="feature-icon" style="width: 48px; height: 48px; margin: 0 auto 16px; background: linear-gradient(135deg, var(--accent-2), var(--accent-3));">
-                <i class="fas fa-building"></i>
-              </div>
-              <h5>Azienda</h5>
-              <p>Pubblica offerte e trova i migliori talenti attraverso il nostro sistema di matching</p>
             </div>
             
             <div class="role-card" onclick="selectRole('docente')">
@@ -4801,44 +4774,143 @@
   <div id="modal-login" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Accedi alla Piattaforma</h3>
+        <h3><i class="fas fa-sign-in-alt"></i> Accedi alla Piattaforma</h3>
         <button class="modal-close" onclick="closeModal('login')">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Seleziona il tuo ruolo per accedere alla demo:</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
-          <button class="feature-btn" onclick="loginAs('studente')" style="padding: 16px; justify-content: space-between;">
-            <span><i class="fas fa-graduation-cap"></i> Accedi come Studente</span>
-            <i class="fas fa-arrow-right"></i>
+        <div style="margin-bottom: 24px; padding: 16px; background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(143, 130, 255, 0.1)); border-radius: 8px; border-left: 4px solid var(--accent);">
+          <h4 style="margin: 0 0 8px 0; color: var(--accent);"><i class="fas fa-info-circle"></i> Credenziali di Prova</h4>
+          <p style="margin: 0; font-size: 14px; color: var(--muted);">Usa le credenziali seguenti per testare la piattaforma:</p>
+          <div style="margin-top: 12px; display: grid; gap: 8px;">
+            <div><strong>Studente:</strong> <code>studente@demo.it</code> / <code>demo123</code></div>
+            <div><strong>Azienda:</strong> <code>azienda@demo.it</code> / <code>demo123</code></div>
+            <div><strong>Docente:</strong> <code>docente@demo.it</code> / <code>demo123</code></div>
+          </div>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" name="email" required 
+                   placeholder="Inserisci la tua email" 
+                   style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 14px;">
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div style="position: relative;">
+              <input type="password" id="loginPassword" name="password" required 
+                     placeholder="Inserisci la tua password"
+                     style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 14px; padding-right: 45px;">
+              <button type="button" onclick="togglePassword()" 
+                      style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); cursor: pointer;">
+                <i class="fas fa-eye" id="togglePasswordIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+              <input type="checkbox" id="rememberMe" style="margin: 0;">
+              Ricordami
+            </label>
+            <a href="#" style="color: var(--accent); text-decoration: none; font-size: 14px;" onclick="alert('Demo: Funzione password dimenticata non implementata')">
+              Password dimenticata?
+            </a>
+          </div>
+
+          <button type="submit" class="feature-btn" style="width: 100%; padding: 16px; margin-bottom: 16px;">
+            <i class="fas fa-sign-in-alt"></i>
+            Accedi
           </button>
-          
-          <button class="feature-btn" onclick="loginAs('azienda')" style="padding: 16px; justify-content: space-between;">
-            <span><i class="fas fa-building"></i> Accedi come Azienda</span>
-            <i class="fas fa-arrow-right"></i>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--border);">
+          <p style="color: var(--muted); margin-bottom: 16px;">Non hai ancora un account?</p>
+          <button class="nav-btn" onclick="closeModal('login'); openModal('register');" style="padding: 12px 24px;">
+            <i class="fas fa-user-plus"></i>
+            Registrati ora
           </button>
-          
-          <button class="feature-btn" onclick="loginAs('docente')" style="padding: 16px; justify-content: space-between;">
-            <span><i class="fas fa-chalkboard-teacher"></i> Accedi come Docente/ITS</span>
-            <i class="fas fa-arrow-right"></i>
-          </button>
+        </div>
+
+        <!-- Quick Login Buttons -->
+        <div style="margin-top: 24px;">
+          <p style="color: var(--muted); margin-bottom: 12px; text-align: center; font-size: 14px;">Accesso rapido demo:</p>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+            <button class="nav-btn" onclick="quickLogin('studente')" style="padding: 12px 16px; font-size: 13px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;">
+              <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                <i class="fas fa-graduation-cap"></i>
+                <strong>Studente</strong>
+              </div>
+              <div style="font-size: 11px; opacity: 0.8; font-weight: 400;">
+                Marco Rossi - studente@demo.it
+              </div>
+            </button>
+            <button class="nav-btn" onclick="quickLogin('azienda')" style="padding: 12px 16px; font-size: 13px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;">
+              <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                <i class="fas fa-building"></i>
+                <strong>Azienda</strong>
+              </div>
+              <div style="font-size: 11px; opacity: 0.8; font-weight: 400;">
+                TechCorp S.r.l. - azienda@demo.it
+              </div>
+            </button>
+            <button class="nav-btn" onclick="quickLogin('docente')" style="padding: 12px 16px; font-size: 13px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;">
+              <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <strong>Docente</strong>
+              </div>
+              <div style="font-size: 11px; opacity: 0.8; font-weight: 400;">
+                Prof. Anna Verdi - docente@demo.it
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
 <script>
+  // Demo users for login system
+  const demoUsers = {
+    'studente@demo.it': {
+      password: 'demo123',
+      role: 'studente',
+      name: 'Marco Rossi',
+      icon: '🎓',
+      dashboard: 'Dashboard Studente'
+    },
+    'azienda@demo.it': {
+      password: 'demo123',
+      role: 'azienda',
+      name: 'TechCorp S.r.l.',
+      icon: '🏢',
+      dashboard: 'Dashboard Azienda'
+    },
+    'docente@demo.it': {
+      password: 'demo123',
+      role: 'docente',
+      name: 'Prof. Anna Verdi',
+      icon: '👩‍🏫',
+      dashboard: 'Dashboard Docente'
+    }
+  };
+
   // Modal Management
   function openModal(modalId) {
     const modal = document.getElementById(`modal-${modalId}`);
+    console.log('Opening modal:', modalId, 'Found:', modal);
     if (modal) {
       modal.classList.add('active');
+      modal.style.display = 'flex'; // Force display
       document.body.style.overflow = 'hidden';
       
       // Reset to role selection when opening register modal
       if (modalId === 'register') {
         showRoleSelection();
       }
+    } else {
+      console.error('Modal not found:', `modal-${modalId}`);
     }
   }
 
@@ -4846,7 +4918,102 @@
     const modal = document.getElementById(`modal-${modalId}`);
     if (modal) {
       modal.classList.remove('active');
+      modal.style.display = 'none'; // Force hide
       document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Login System Functions
+  function handleLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    // Check credentials
+    const user = demoUsers[email];
+    
+    if (!user) {
+      alert('❌ Email non trovata!\n\nUsa una delle credenziali di prova:\n• studente@demo.it\n• azienda@demo.it\n• docente@demo.it');
+      return;
+    }
+    
+    if (user.password !== password) {
+      alert('❌ Password errata!\n\nLa password per tutti gli account demo è: demo123');
+      return;
+    }
+    
+    // Login successful
+    closeModal('login');
+    
+    // Show loading animation
+    const loadingDiv = document.createElement('div');
+    loadingDiv.innerHTML = `
+      <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 400px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">${user.icon}</div>
+          <h3 style="margin: 0 0 8px 0; color: var(--accent);">Login Effettuato!</h3>
+          <p style="margin: 0 0 16px 0; color: var(--muted);">Benvenuto ${user.name}</p>
+          <div style="width: 100%; height: 4px; background: #f0f0f0; border-radius: 2px; overflow: hidden;">
+            <div style="width: 0%; height: 100%; background: var(--accent); border-radius: 2px; animation: loadingBar 2s ease-in-out forwards;"></div>
+          </div>
+          <p style="margin: 16px 0 0 0; font-size: 12px; color: var(--muted);">Accesso al ${user.dashboard}...</p>
+        </div>
+      </div>
+      <style>
+        @keyframes loadingBar {
+          to { width: 100%; }
+        }
+      </style>
+    `;
+    document.body.appendChild(loadingDiv);
+    
+    // Simulate loading and redirect to dashboard
+    setTimeout(() => {
+      document.body.removeChild(loadingDiv);
+      
+      // Open appropriate dashboard
+      if (user.role === 'studente') {
+        openModal('studente');
+      } else if (user.role === 'azienda') {
+        openModal('azienda');
+      } else if (user.role === 'docente') {
+        openModal('docente');
+      }
+      
+      // Show welcome message
+      setTimeout(() => {
+        alert(`🎉 Benvenuto nel ${user.dashboard}!\n\n✅ Login completato come ${user.name}\n\n🚀 Esplora tutte le funzionalità disponibili nella dashboard!`);
+      }, 500);
+    }, 2000);
+  }
+
+  function quickLogin(role) {
+    const credentials = {
+      'studente': 'studente@demo.it',
+      'azienda': 'azienda@demo.it', 
+      'docente': 'docente@demo.it'
+    };
+    
+    document.getElementById('loginEmail').value = credentials[role];
+    document.getElementById('loginPassword').value = 'demo123';
+    
+    // Auto-submit after a brief moment
+    setTimeout(() => {
+      handleLogin({ preventDefault: () => {} });
+    }, 300);
+  }
+
+  function togglePassword() {
+    const passwordInput = document.getElementById('loginPassword');
+    const toggleIcon = document.getElementById('togglePasswordIcon');
+    
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.className = 'fas fa-eye-slash';
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon.className = 'fas fa-eye';
     }
   }
 
