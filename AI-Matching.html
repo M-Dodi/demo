@@ -5332,12 +5332,14 @@
     
     let candidateList = "🏢 CANDIDATI SELEZIONATI PER LA TUA OFFERTA\n";
     candidateList += "Position: Full-Stack Developer Junior\n";
-    candidateList += "🔒 Privacy: Nomi completi visibili dopo interesse reciproco\n\n";
+    candidateList += "🔒 Privacy: Identità anonima fino a interesse reciproco\n\n";
     
     candidates.forEach((candidate, index) => {
-      // FASE 1: Mostra solo iniziali per privacy
-      const displayName = candidate.phase === 1 ? candidate.anonymousName : candidate.name;
-      candidateList += `${index + 1}. Candidato ${displayName}\n`;
+      // FASE 1: Mostra solo ID numerico anonimo (es: Candidato 01)
+      const candidateNumber = String(index + 1).padStart(2, '0');
+      const displayName = candidate.phase === 1 ? candidateNumber : candidate.name;
+      const prefix = candidate.phase === 1 ? `Candidato ${displayName}` : displayName;
+      candidateList += `${index + 1}. ${prefix}\n`;
       candidateList += `   📊 Match Score: ${candidate.match}\n`;
       candidateList += `   💻 Skills: ${candidate.skills}\n`;
       candidateList += `   📍 ${candidate.location}\n\n`;
@@ -5740,7 +5742,7 @@
               🔒 Sistema Privacy a 3 Fasi - GDPR Compliant
             </h4>
             <p style="margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5;">
-              <strong>FASE 1:</strong> Visualizzi solo <strong>iniziali + competenze</strong> dei candidati<br>
+              <strong>FASE 1:</strong> Visualizzi solo <strong>ID anonimo (es: Candidato 01) + competenze</strong><br>
               <strong>FASE 2:</strong> Dopo interesse reciproco → <strong>Nome completo rivelato</strong><br>
               <strong>FASE 3:</strong> Dopo accettazione colloquio → <strong>Contatti completi condivisi</strong>
             </p>
@@ -5806,10 +5808,10 @@
             <div class="candidates-list">
               <div class="candidate-item">
                 <div class="candidate-avatar">
-                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2334c759'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='white' font-size='35' font-family='Arial'%3EAR%3C/text%3E%3C/svg%3E" alt="Candidato A.R.">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2334c759'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='white' font-size='35' font-family='Arial'%3E01%3C/text%3E%3C/svg%3E" alt="Candidato 01">
                 </div>
                 <div class="candidate-info">
-                  <h6>Candidato A.R. 🔒</h6>
+                  <h6>Candidato 01 🔒</h6>
                   <p>Full-Stack Developer • ITS Digital</p>
                   <div class="skills-tags">
                     <span class="skill-tag">React</span>
@@ -5817,7 +5819,7 @@
                     <span class="skill-tag">MongoDB</span>
                   </div>
                   <small style="color: var(--muted); font-size: 11px; display: block; margin-top: 8px;">
-                    <i class="fas fa-shield-alt"></i> Nome completo visibile dopo interesse reciproco
+                    <i class="fas fa-shield-alt"></i> Identità rivelata dopo interesse reciproco
                   </small>
                 </div>
                 <div class="match-score">
