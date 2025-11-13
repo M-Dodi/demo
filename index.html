@@ -5303,49 +5303,62 @@
     const candidates = [
       {
         name: "Alice Rossi",
+        anonymousName: "A.R.", // Privacy: solo iniziali nella fase 1
         score: 94,
         skills: "React, Node.js, Python",
         location: "Milano (8km)",
-        match: "97%"
+        match: "97%",
+        phase: 1 // 1=matching iniziale, 2=interesse reciproco, 3=colloquio accettato
       },
       {
-        name: "Marco Bianchi", 
+        name: "Marco Bianchi",
+        anonymousName: "M.B.",
         score: 87,
         skills: "Vue.js, PHP, MySQL",
         location: "Bergamo (15km)",
-        match: "89%"
+        match: "89%",
+        phase: 1
       },
       {
         name: "Sofia Chen",
+        anonymousName: "S.C.",
         score: 91,
         skills: "Angular, .NET, Azure",
         location: "Milano (12km)", 
-        match: "92%"
+        match: "92%",
+        phase: 1
       }
     ];
     
     let candidateList = "🏢 CANDIDATI SELEZIONATI PER LA TUA OFFERTA\n";
-    candidateList += "Position: Full-Stack Developer Junior\n\n";
+    candidateList += "Position: Full-Stack Developer Junior\n";
+    candidateList += "🔒 Privacy: Nomi completi visibili dopo interesse reciproco\n\n";
     
     candidates.forEach((candidate, index) => {
-      candidateList += `${index + 1}. ${candidate.name}\n`;
+      // FASE 1: Mostra solo iniziali per privacy
+      const displayName = candidate.phase === 1 ? candidate.anonymousName : candidate.name;
+      candidateList += `${index + 1}. Candidato ${displayName}\n`;
       candidateList += `   📊 Match Score: ${candidate.match}\n`;
       candidateList += `   💻 Skills: ${candidate.skills}\n`;
       candidateList += `   📍 ${candidate.location}\n\n`;
     });
     
-    candidateList += "🔥 Tutti i candidati sono pre-qualificati e pronti per il colloquio!\n\n";
-    candidateList += "Vuoi procedere con la schedulazione dei colloqui flash?";
+    candidateList += "🔥 Tutti i candidati sono pre-qualificati e pronti!\n";
+    candidateList += "✅ Clicca 'OK' per esprimere interesse\n";
+    candidateList += "📧 I candidati interessati riceveranno la notifica\n\n";
+    candidateList += "Vuoi esprimere interesse per questi candidati?";
     
     if (confirm(candidateList)) {
+      // FASE 2: Dopo interesse reciproco, rivela i nomi completi
       setTimeout(() => {
-        alert("📅 COLLOQUI SCHEDULATI!\n\n" +
-              "• Alice Rossi: Domani 14:00-14:30\n" +
-              "• Marco Bianchi: Domani 15:00-15:30\n" +
-              "• Sofia Chen: Dopodomani 10:00-10:30\n\n" +
-              "📧 Inviti inviati automaticamente\n" +
-              "🔗 Link meeting generati\n" +
-              "📋 Questionari pre-colloquio pronti");
+        alert("✨ INTERESSE REGISTRATO!\n\n" +
+              "🔓 FASE 2: I candidati che hanno accettato visualizzano ora i tuoi dettagli.\n\n" +
+              "📋 CANDIDATI CHE HANNO ACCETTATO:\n" +
+              "✅ Alice Rossi - Disponibile per colloquio\n" +
+              "✅ Sofia Chen - Disponibile per colloquio\n" +
+              "⏳ Marco Bianchi - In attesa di risposta\n\n" +
+              "� Ora puoi vedere i nomi completi dei candidati interessati!\n\n" +
+              "Procedi con la schedulazione dei colloqui?");
       }, 800);
     }
   }
@@ -5709,6 +5722,31 @@
         <button class="modal-close" onclick="closeModal('azienda')">&times;</button>
       </div>
       <div class="modal-body">
+        <!-- Privacy Notice Banner -->
+        <div style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(0, 212, 170, 0.1)); 
+                    border: 2px solid var(--accent); 
+                    border-radius: 12px; 
+                    padding: 16px 20px; 
+                    margin-bottom: 24px;
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;">
+          <div style="width: 48px; height: 48px; background: var(--accent); border-radius: 12px; 
+                      display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i class="fas fa-shield-alt" style="font-size: 24px; color: white;"></i>
+          </div>
+          <div style="flex: 1;">
+            <h4 style="margin: 0 0 8px 0; color: var(--white); font-size: 16px;">
+              🔒 Sistema Privacy a 3 Fasi - GDPR Compliant
+            </h4>
+            <p style="margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5;">
+              <strong>FASE 1:</strong> Visualizzi solo <strong>iniziali + competenze</strong> dei candidati<br>
+              <strong>FASE 2:</strong> Dopo interesse reciproco → <strong>Nome completo rivelato</strong><br>
+              <strong>FASE 3:</strong> Dopo accettazione colloquio → <strong>Contatti completi condivisi</strong>
+            </p>
+          </div>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
           
           <!-- Company Overview -->
@@ -5768,21 +5806,24 @@
             <div class="candidates-list">
               <div class="candidate-item">
                 <div class="candidate-avatar">
-                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2334c759'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='white' font-size='35' font-family='Arial'%3EAR%3C/text%3E%3C/svg%3E" alt="Anna Rossi">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2334c759'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='white' font-size='35' font-family='Arial'%3EAR%3C/text%3E%3C/svg%3E" alt="Candidato A.R.">
                 </div>
                 <div class="candidate-info">
-                  <h6>Anna Rossi</h6>
+                  <h6>Candidato A.R. 🔒</h6>
                   <p>Full-Stack Developer • ITS Digital</p>
                   <div class="skills-tags">
                     <span class="skill-tag">React</span>
                     <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">MongoDB</span>
                   </div>
+                  <small style="color: var(--muted); font-size: 11px; display: block; margin-top: 8px;">
+                    <i class="fas fa-shield-alt"></i> Nome completo visibile dopo interesse reciproco
+                  </small>
                 </div>
                 <div class="match-score">
                   <span class="match-percentage" style="color: #34c759;">94%</span>
                 </div>
-                <button class="candidate-btn">Contatta</button>
+                <button class="candidate-btn">Esprimi Interesse</button>
               </div>
             </div>
           </div>
