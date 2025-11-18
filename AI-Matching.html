@@ -1720,6 +1720,7 @@
     background: var(--border);
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
   }
 
   .match-slider::-webkit-slider-thumb {
@@ -4145,7 +4146,7 @@
         <div id="teacher-form" class="registration-step">
           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
             <button onclick="showRoleSelection()" style="background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer;">←</button>
-            <h4>Registrazione Docente/ITS</h4>
+            <h4>Registrazione Docente</h4>
           </div>
           
           <form class="registration-form">
@@ -4162,35 +4163,49 @@
             
             <div class="form-group">
               <label>Email istituzionale *</label>
-              <input type="email" required placeholder="nome.cognome@its.edu">
+              <input type="email" required placeholder="nome.cognome@scuola.edu">
             </div>
             
             <div class="form-group">
-              <label>Istituto di appartenenza *</label>
+              <label>Scuola/Istituto *</label>
+              <input type="text" required placeholder="Nome della scuola">
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Città *</label>
+                <input type="text" required placeholder="Milano">
+              </div>
+              <div class="form-group">
+                <label>Provincia *</label>
+                <select required>
+                  <option value="">Seleziona</option>
+                  <option value="MI">Milano</option>
+                  <option value="BG">Bergamo</option>
+                  <option value="BS">Brescia</option>
+                  <option value="CO">Como</option>
+                  <option value="VA">Varese</option>
+                  <option value="altro">Altra provincia</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Materia insegnata *</label>
               <select required>
-                <option value="">Seleziona istituto</option>
-                <option value="its-ict">ITS ICT Academy</option>
-                <option value="its-digital">ITS Digital Innovation</option>
-                <option value="its-tech">ITS Tech Solutions</option>
-                <option value="fondazione">Fondazione ITS</option>
-                <option value="altro">Altro ente formativo</option>
+                <option value="">Seleziona materia</option>
+                <option value="informatica">Informatica</option>
+                <option value="sistemi">Sistemi e Reti</option>
+                <option value="telecomunicazioni">Telecomunicazioni</option>
+                <option value="elettronica">Elettronica</option>
+                <option value="matematica">Matematica</option>
+                <option value="laboratorio">Laboratorio Tecnico</option>
+                <option value="altro">Altra materia</option>
               </select>
             </div>
             
             <div class="form-group">
-              <label>Ruolo *</label>
-              <select required>
-                <option value="">Seleziona ruolo</option>
-                <option value="docente">Docente</option>
-                <option value="coordinatore">Coordinatore didattico</option>
-                <option value="tutor">Tutor aziendale</option>
-                <option value="responsabile">Responsabile formazione</option>
-                <option value="direttore">Direttore ITS</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label>Aree di competenza *</label>
+              <label>Competenze tecniche</label>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 8px;">
                 <label style="display: flex; align-items: center; gap: 8px;">
                   <input type="checkbox" name="competenze" value="programmazione">
@@ -4220,18 +4235,24 @@
             </div>
             
             <div class="form-group">
+              <label>Classi gestite</label>
+              <input type="text" placeholder="Es: 4A, 4B, 5A Informatica">
+            </div>
+            
+            <div class="form-group">
               <label>Telefono</label>
               <input type="tel" placeholder="+39 123 456 7890">
             </div>
             
             <div class="form-group">
-              <label>Esperienza professionale</label>
-              <textarea placeholder="Breve descrizione della tua esperienza nel settore IT e nell'insegnamento"></textarea>
-            </div>
-            
-            <div class="form-group">
-              <label>Corsi che intendi seguire</label>
-              <textarea placeholder="Indica i corsi di cui vorresti monitorare gli studenti"></textarea>
+              <label>Anni di insegnamento</label>
+              <select>
+                <option value="">Seleziona</option>
+                <option value="0-2">0-2 anni</option>
+                <option value="3-5">3-5 anni</option>
+                <option value="6-10">6-10 anni</option>
+                <option value="10+">Oltre 10 anni</option>
+              </select>
             </div>
             
             <div class="form-group">
